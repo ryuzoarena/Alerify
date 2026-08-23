@@ -563,15 +563,17 @@ export function DesktopShell(props: DesktopShellProps) {
                     >
                       <Upload size={12} /> Upload Song
                     </button>
-                    <button
-                      onClick={() => {
-                        setProfileMenu(false);
-                        onToggleDeleteMode();
-                      }}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-[#8896a4] hover:text-white hover:bg-white/5"
-                    >
-                      <Trash2 size={12} /> {isDeleteMode ? 'Exit Delete' : 'Delete Mode'}
-                    </button>
+                    {isAdmin && (
+                      <button
+                        onClick={() => {
+                          setProfileMenu(false);
+                          onToggleDeleteMode();
+                        }}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-[#8896a4] hover:text-white hover:bg-white/5"
+                      >
+                        <Trash2 size={12} /> {isDeleteMode ? 'Exit Delete' : 'Delete Mode'}
+                      </button>
+                    )}
                     {isAdmin && (
                       <button
                         onClick={() => {
