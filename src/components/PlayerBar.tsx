@@ -11,6 +11,8 @@ import { FullScreenPlayer } from './FullScreenPlayer';
 import { MiniPlayer } from './MiniPlayer';
 import { useBackgroundPlayback } from '@/hooks/useBackgroundPlayback';
 import { useAudioStabilityGuard } from '@/hooks/useAudioStabilityGuard';
+import { useNetworkPlaybackGuard } from '@/hooks/useNetworkPlaybackGuard';
+
 import { useNowPlayingNotification } from '@/hooks/useNowPlayingNotification';
 import { useAudioEngine } from '@/hooks/useAudioEngine';
 
@@ -219,6 +221,10 @@ export function PlayerBar({ onToggleLyrics, showLyrics, onCoverUrlChange }: Play
 
   // Background playback support - keeps music playing when screen is off
   useBackgroundPlayback(audioRef, isPlaying, resumeAudioContext);
+
+  // Pause on connection loss, auto-resume when back online
+  useNetworkPlaybackGuard(audioRef, isPlaying, togglePlay);
+
 
   // Re-apply safe audio settings on each new src/track lifecycle (fix: only first song stable)
   useAudioStabilityGuard(audioRef, Boolean(currentSong && loadedAudioUrl));
